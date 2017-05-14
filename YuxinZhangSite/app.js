@@ -7,10 +7,12 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var expressHbs = require('express-handlebars');
 
+var mongoose =require('mongoose');
+
 //routes
 var index = require('./routes/index');
 var users = require('./routes/users');
-
+var shop = require('./routes/shop/shop')
 
 var app = express();
 
@@ -26,8 +28,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+//route different account
 app.use('/users', users);
+app.use('/shop', shop);
+app.use('/', index);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

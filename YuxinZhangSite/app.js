@@ -7,8 +7,9 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var flash = require('connect-flash');
 var expressHbs = require('express-handlebars');
-var session = require('express-session');
 
+//session store
+var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
 var mongoose =require('mongoose');
@@ -24,6 +25,7 @@ var app = express();
 // mongoose.connect('mongodb://yuxinzhang:**OctEngi0606@cluster0-shard-00-00-czv9t.mongodb.net:27017,cluster0-shard-00-01-czv9t.mongodb.net:27017,cluster0-shard-00-02-czv9t.mongodb.net:27017/yuxinzhangpw?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin');
 mongoose.connect('localhost:27017/yuxinzhangpw');
 mongoose.Promise = global.Promise;
+require('./config/passport_local');
 
 // view engine setup
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
@@ -38,12 +40,17 @@ app.use(cookieParser());
 
 //session
 app.use(session({
-  secret: 'mysupersecret',
+  secret: 'yuxinzhang',
   resave: false,
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
-  cookie: { maxAge: 120 * 60 * 1000 }
+  cookie: { maxAge: 60 * 60 * 1000 }
 }));
+
+// Initialize Passport and restore authentication state, if any, from the
+// session.
+app.use(passport.initialize());
+app.use(passport.session());
 
 //flash
 app.use(flash());

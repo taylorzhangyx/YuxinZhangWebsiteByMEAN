@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt');
 
+var Cart = require('./cart');
+
 var User = new Schema({
   email: {
     type: String,
@@ -21,6 +23,11 @@ var User = new Schema({
   },
   address: {
     type: String
+  },
+  cart: {
+    type: Schema.Types.ObjectId,
+    ref: 'Cart',
+    default: new Cart()._id
   }
 });
 

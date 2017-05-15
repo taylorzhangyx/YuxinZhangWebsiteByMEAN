@@ -60,6 +60,14 @@ app.use(flash());
 //route static file to public
 app.use(express.static(path.join(__dirname, 'public')));
 
+//add local methods for web display
+app.use(function(req, res, next){
+  res.locals.login = req.isAuthenticated();
+  res.locals.session = req.session;
+  res.locals.user = req.user;
+  next();
+});
+
 //route different account
 app.use('/users', users);
 app.use('/shop', shop);

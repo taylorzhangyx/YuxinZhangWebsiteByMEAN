@@ -76,7 +76,7 @@ passport.use('local.signin', new localStrategy({
   usernameField: 'email',
   passwordField: 'password',
   passReqToCallback: true
-}, function(res, email, password, done) {
+}, function(req, email, password, done) {
   req.checkBody('email', 'Invalid Email Address').notEmpty().isEmail();
   req.checkBody('password', 'Password Too Short').notEmpty().isLength({
     min: 6

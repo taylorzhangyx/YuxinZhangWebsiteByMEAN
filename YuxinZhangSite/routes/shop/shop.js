@@ -33,6 +33,28 @@ shop.get('/', function(req, res, next) {
   });
 });
 
+
+shop.get('/signin', function (req, res, next) {
+    var messages = req.flash('error');
+    res.render('shop/signin', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
+});
+
+
+shop.post('/signin',passport.authenticate('local.signin', {
+  failureRedirect:'/shop/signup',
+  failureFlash: true
+}), function(req, res, next){
+  if(req.session.oldUrl){
+    var oldUrl = req.session.oldUrl;
+    req.session.oldUrl = null;
+    res.redirect(oldUrl);
+  }
+  else{
+    res.redirect('/shop/profile');
+  }
+});
+
+
 shop.get('/signup', function (req, res, next) {
     var messages = req.flash('error');
     res.render('shop/signup', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
@@ -53,14 +75,34 @@ shop.post('/signup',passport.authenticate('local.signup', {
   }
 });
 
-shop.get('/profile', function(req, res, next){
+shop.get('/add-to-cart/:id', function(req, res, next){
+  req.params.id;
+
+});
+
+
+shop.get('/profile', isLoggedIn, function(req, res, next){
   res.render('shop/profile');
 });
 
 shop.get('/logout', function(req, res, next){
-  res.logout();
+  req.logout();
   res.render('shop/logout');
 });
 
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('./signup');
+}
+
+function notLoggedIn(req, res, next) {
+    if (!req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/');
+}
 
 module.exports = shop;

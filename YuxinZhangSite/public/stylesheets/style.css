@@ -9,3 +9,19 @@ a {
 .navbar-brand img{
   max-height: 24px;
 }
+
+
+/*shop css*/
+
+
+.thumbnail img{
+  height: 150px;
+}
+
+
+.thumbnail .description{
+  height: 200px;
+  word-wrap: break-word;
+  overflow: hidden;
+  white-space: normal;
+}

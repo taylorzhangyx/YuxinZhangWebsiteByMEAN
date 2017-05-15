@@ -43,8 +43,9 @@ passport.use('local.signup', new localStrategy({
     errors.forEach(function(error) {
       message.push(error.msg);
     });
-    return done(null, false, req.falsh('error', messages));
+    return done(null, false, req.flash('error', message));
   }
+
 
   User.findOne({
     'email': email
@@ -54,14 +55,14 @@ passport.use('local.signup', new localStrategy({
     }
     if (user) {
       return done(null, false, {
-        message: 'Email is already in user.'
+        message: 'Email is already in use.'
       });
     }
     var newUser = new User();
     newUser.email = email;
-    newUser.password = newUser.encryptPassword(password);
-    newUser.signUpDate = Date.now;
-    newUser.lastLogin = Date.now;
+    var hash = newUser.encryptPassword(password)
+    console.log(hash);
+    newUser.password = hash;
     newUser.save(function(err, result) {
       if (err) {
         return done(err);
@@ -75,7 +76,7 @@ passport.use('local.signin', new localStrategy({
   usernameField: 'email',
   passwordField: 'password',
   passReqToCallback: true
-},function(res, email, password, done){
+}, function(res, email, password, done) {
   req.checkBody('email', 'Invalid Email Address').notEmpty().isEmail();
   req.checkBody('password', 'Password Too Short').notEmpty().isLength({
     min: 6
@@ -86,21 +87,26 @@ passport.use('local.signin', new localStrategy({
     errors.forEach(function(error) {
       message.push(error.msg);
     });
-    return done(null, false, req.falsh('error', messages));
+    return done(null, false, req.flash('error', message));
   }
 
-  User.findOne({'email' : email}, function(err, user){
-    if(err){
+  User.findOne({
+    'email': email
+  }, function(err, user) {
+    if (err) {
       return done(err);
     }
-    if(!user){
-      return done(null, false, {message: 'User not found.'});
+    if (!user) {
+      return done(null, false, {
+        message: 'User not found.'
+      });
     }
-    if(!user.checkPassword(password)){
-      return done(null, false, {message: 'Incorrect Password'});
+    if (!user.checkPassword(password)) {
+      return done(null, false, {
+        message: 'Incorrect Password'
+      });
     }
     return done(null, user);
   });
 
-}
-));
+}));

@@ -1,52 +1,52 @@
 
 module.exports = function Cart(oldCart) {
-    this.items = oldCart.items || {};
+    this.item = oldCart.item || {};
     this.totalQty = oldCart.totalQty || 0;
     this.totalPrice = oldCart.totalPrice || 0;
 
     this.add = function(item, id) {
-        var storedItem = this.items[id];
+        var storedItem = this.item[id];
         if (!storedItem) {
-            storedItem = this.items[id] = {
-              item: item,
-              qty: 0,
-              price: 0
+            storedItem = this.item[id] = {
+              product: item,
+              quantity: 0,
+              sumPrice: 0
             };
         }
-        storedItem.qty++;
-        storedItem.price = storedItem.item.price * storedItem.qty;
+        storedItem.quantity++;
+        storedItem.sumPrice = storedItem.product.price * storedItem.quantity;
         this.totalQty++;
-        this.totalPrice += storedItem.item.price;
+        this.totalPrice += storedItem.product.price;
     };
 
     this.reduceByOne = function(id) {
-        this.items[id].qty--;
-        this.items[id].price -= this.items[id].item.price;
+        this.item[id].quantity--;
+        this.item[id].sumPrice -= this.item[id].product.price;
         this.totalQty--;
-        this.totalPrice -= this.items[id].item.price;
+        this.totalPrice -= this.item[id].product.price;
 
-        if (this.items[id].qty <= 0) {
-            delete this.items[id];
+        if (this.item[id].quantity <= 0) {
+            delete this.item[id];
         }
     };
 
     this.addByOne = function(id) {
-        this.items[id].qty++;
-        this.items[id].price += this.items[id].item.price;
+        this.item[id].quantity++;
+        this.item[id].sumPrice += this.item[id].product.price;
         this.totalQty++;
-        this.totalPrice += this.items[id].item.price;
+        this.totalPrice += this.item[id].product.price;
     };
 
     this.removeItem = function(id) {
-        this.totalQty -= this.items[id].qty;
-        this.totalPrice -= this.items[id].price;
-        delete this.items[id];
+        this.totalQty -= this.item[id].quantity;
+        this.totalPrice -= this.item[id].sumPrice;
+        delete this.item[id];
     };
 
     this.generateArray = function() {
         var arr = [];
-        for (var id in this.items) {
-            arr.push(this.items[id]);
+        for (var id in this.item) {
+            arr.push(this.item[id]);
         }
         return arr;
     };

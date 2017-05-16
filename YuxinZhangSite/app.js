@@ -57,9 +57,6 @@ app.use(passport.session());
 //flash
 app.use(flash());
 
-//route static file to public
-app.use(express.static(path.join(__dirname, 'public')));
-
 //add local methods for web display
 app.use(function(req, res, next){
   res.locals.login = req.isAuthenticated();
@@ -68,7 +65,12 @@ app.use(function(req, res, next){
   next();
 });
 
-//route different account
+//route static file to public
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+//route different url
 app.use('/users', users);
 app.use('/shop', shop);
 app.use('/', index);

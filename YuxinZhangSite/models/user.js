@@ -26,8 +26,7 @@ var User = new Schema({
   },
   cart: {
     type: Schema.Types.ObjectId,
-    ref: 'Cart',
-    default: new Cart.Cart()._id
+    ref: 'Cart'
   }
 });
 

@@ -2,6 +2,11 @@ var passport = require('passport');
 var User = require('../models/user');
 var localStrategy = require('passport-local').Strategy;
 
+var sessionCart = require('../models/session-cart');
+var Carts = require('../models/cart');
+var Cart = Carts.Cart;
+var Item = Carts.Item;
+
 // Configure Passport authenticated session persistence.
 //
 // In order to restore authentication state across HTTP requests, Passport needs
@@ -45,8 +50,7 @@ passport.use('local.signup', new localStrategy({
     });
     return done(null, false, req.flash('error', message));
   }
-
-
+  //handel duplicate name
   User.findOne({
     'email': email
   }, function(err, user) {
@@ -58,11 +62,39 @@ passport.use('local.signup', new localStrategy({
         message: 'Email is already in use.'
       });
     }
+    //get new cart
+    var cart = new Cart();
+    //get new user
     var newUser = new User();
+    //process cart
+    if(req.session.cart){
+      var seCart = new sessionCart(req.session.cart);
+
+      cart.totalQty = seCart.totalQty;
+      cart.totalPrice = seCart.totalPrice;
+      cart.user = newUser._id;
+      for(var id in seCart.item){
+        var commodity = seCart.item[id];
+        var newproducts = new Item({
+          product: commodity.product._id,
+          quantity: commodity.quantity,
+          sumPrice: commodity.sumPrice,
+          cart: cart._id
+        });
+        newproducts.save(function(err, result){
+          if(err) console.log('newproduct save ' + err);
+        });
+        cart.item.push(newproducts._id);
+      }
+      req.session.cart = null;
+    }
+    cart.save(function(err, result){
+      if(err) console.log("cart save Error: " + err);
+    });
+    //process user
     newUser.email = email;
-    console.log(hash);
     newUser.password = newUser.encryptPassword(password);
-    newUser.cart = req.session.cart;
+    newUser.cart = cart._id;
     newUser.save(function(err, result) {
       if (err) {
         return done(err);
@@ -72,6 +104,8 @@ passport.use('local.signup', new localStrategy({
   });
 }));
 
+
+/*sign in handle*/
 passport.use('local.signin', new localStrategy({
   usernameField: 'email',
   passwordField: 'password',
@@ -92,7 +126,8 @@ passport.use('local.signin', new localStrategy({
 
   User.findOne({
     'email': email
-  }, function(err, user) {
+  }).populate('cart')
+  .exec(function(err, user) {
     if (err) {
       return done(err);
     }
@@ -106,7 +141,45 @@ passport.use('local.signin', new localStrategy({
         message: 'Incorrect Password'
       });
     }
+
+    //handel cart
+
+
+    var cart = user.cart;
+    console.log(cart);
+    //process cart
+    if(req.session.cart){
+      var seCart = new sessionCart(req.session.cart);
+
+      cart.totalQty = add(cart.totalQty, seCart.totalQty);
+      cart.totalPrice = add(cart.totalPrice, seCart.totalPrice);
+
+      for(var id in seCart.item){
+        var commodity = seCart.item[id];
+        var newproducts = new Item({
+          product: commodity.product._id,
+          quantity: commodity.quantity,
+          sumPrice: commodity.sumPrice,
+          cart: cart._id
+        });
+        newproducts.save(function(err, result){
+          if(err) console.log('newproduct save ' + err);
+        });
+        cart.item.push(newproducts._id);
+      }
+
+      req.session.cart = null;
+    }
+    cart.save(function(err, result){
+      if(err) console.log("cart save Error: " + err);
+    });
+
     return done(null, user);
   });
 
 }));
+
+
+function add(a,b){
+  return (a*100 + b*100)/100;
+}

@@ -4,6 +4,9 @@ var shop = express.Router();
 var passport = require('passport');
 var csrf = require('csurf');
 var carthelper = require('./carthelper');
+var Carts = require('../../models/cart');
+var Cart = Carts.Cart;
+var Item = Carts.Item;
 
 var csrfProtection = csrf();
 shop.use(csrfProtection);
@@ -22,10 +25,23 @@ shop.get('/', function(req, res, next) {
         for (var i = 0; i < product.length; i += chunkSize) {
           productChunks.push(product.slice(i, i + chunkSize));
         }
-        res.render('shop/shop', {
-          products: productChunks,
-          msg: successmsg
-        });
+        if(req.isAuthenticated()){
+          Cart.findById(req.user.cart, function(err, cart){
+            res.render('shop/shop', {
+              products: productChunks,
+              msg: successmsg,
+              cart: cart
+            });
+          });
+        }
+        else{
+          res.render('shop/shop', {
+            products: productChunks,
+            msg: successmsg,
+            cart: req.session.cart
+          });
+        }
+
       }
       else res.redirect('/');
     }
@@ -92,17 +108,6 @@ shop.get('/remove/:id', function(req, res, next) {
   else{
     carthelper.removeItemSession(req.params.id, req, res);
   }
-
-});
-
-shop.get('/add/:id', function(req, res, next) {
-  if(req.isAuthenticated()){
-    carthelper.addItem(req.params.id, req, res);
-  }
-  else{
-    carthelper.addItemSession(req.params.id, req, res);
-  }
-
 });
 
 
@@ -116,8 +121,25 @@ shop.get('/add-to-cart/:id', function(req, res, next){
   }
 });
 
+
 shop.get('/cart', function(req, res, next){
-  res.render('shop/cart');
+  //if log in
+  if(req.isAuthenticated()){
+    Cart.findById(req.user.cart)
+    .populate({
+      path: 'item',
+      populate:{path: 'product'}
+    })
+    .exec(function(err, dbcart){
+      if(err) console.log(err);
+      res.render('shop/cart', {'cart': dbcart});
+    });
+  }
+  //if not login
+  else{
+    res.render('shop/cart', {'cart': req.session.cart});
+  }
+
 });
 
 
@@ -126,6 +148,8 @@ shop.get('/profile', isLoggedIn, function(req, res, next){
 });
 
 shop.get('/logout', function(req, res, next){
+
+  req.session.cart = null;
   req.logout();
   res.render('shop/logout');
 });
@@ -145,7 +169,7 @@ function isLoggedIn(req, res, next) {
 
 shop.get('/checkout', isLoggedIn, function(req, res, next) {
     if (!req.session.cart) {
-        return res.redirect('/shopping-cart');
+        return res.redirect('/shop/cart');
     }
     var cart = new Cart(req.session.cart);
     var errMsg = req.flash('error')[0];

@@ -75,6 +75,37 @@ shop.post('/signup',passport.authenticate('local.signup', {
   }
 });
 
+shop.get('/reduce/:id', function(req, res, next) {
+  if(req.isAuthenticated()){
+    carthelper.reduceItem(req.params.id, req, res);
+  }
+  else{
+    carthelper.reduceItemSession(req.params.id, req, res);
+  }
+});
+
+shop.get('/remove/:id', function(req, res, next) {
+  if(req.isAuthenticated()){
+    carthelper.removeItem(req.params.id, req, res);
+  }
+  else{
+    carthelper.removeItemSession(req.params.id, req, res);
+  }
+
+});
+
+shop.get('/add/:id', function(req, res, next) {
+  if(req.isAuthenticated()){
+    carthelper.addItem(req.params.id, req, res);
+  }
+  else{
+    carthelper.addItemSession(req.params.id, req, res);
+  }
+
+});
+
+
+
 shop.get('/add-to-cart/:id', function(req, res, next){
   if(req.isAuthenticated()){
     carthelper.addItemToCart(req.params.id, req, res);

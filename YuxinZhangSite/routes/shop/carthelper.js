@@ -29,7 +29,12 @@ helper.reduceItem = function(id, req, res){
 helper.reduceItemSession = function(id, req, res){
     var cart = new sessionCart(req.session.cart ? req.session.cart : {});
     cart.reduceByOne(id);
+    if(cart.totalQty === 0){
+      req.session.cart = null;
+    }
+    else{
     req.session.cart = cart;
+    }
     res.redirect('/shop/cart');
 }
 
@@ -41,7 +46,12 @@ helper.removeItem = function(id, req, res){
 helper.removeItemSession = function(id, req, res){
   var cart = new sessionCart(req.session.cart ? req.session.cart : {});
   cart.removeItem(id);
+  if(cart.totalQty === 0){
+    req.session.cart = null;
+  }
+  else{
   req.session.cart = cart;
+  }
   res.redirect('/shop/cart');
 }
 

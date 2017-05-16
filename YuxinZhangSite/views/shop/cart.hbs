@@ -1,0 +1,20 @@
+<div class="container">
+  {{> shopnav}}
+  <h1>My Shopping Cart:</h1>
+
+  {{# if session.cart}}
+    <div class="row">
+      <ul class="list-group">
+        {{# each session.cart.items}}
+          <li class="list-group-item">
+            {{this.item.name}}
+            <span class="badge">{{this.qty}}</span>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  {{else}}
+      <h1>Your Shopping Cart is Empty, Why Not So <a href="/shop">Shopping</a>?</h1>
+  {{/if}}
+
+</div>

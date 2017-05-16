@@ -2,6 +2,7 @@ var express = require('express');
 var shop = express.Router();
 var passport = require('passport');
 var csrf = require('csurf');
+var carthelper = require('./carthelper');
 
 var csrfProtection = csrf();
 shop.use(csrfProtection);
@@ -14,7 +15,6 @@ shop.get('/', function(req, res, next) {
   var successmsg = req.flash('success')[0];
   Product.find({}).then(
     function(product) {
-      console.log(product);
       if(product){
         var productChunks = [];
         var chunkSize = 3;
@@ -29,7 +29,7 @@ shop.get('/', function(req, res, next) {
       else res.redirect('/');
     }
   ).catch(function(err){
-    console.log();
+    console.log(err);
   });
 });
 
@@ -76,8 +76,16 @@ shop.post('/signup',passport.authenticate('local.signup', {
 });
 
 shop.get('/add-to-cart/:id', function(req, res, next){
-  req.params.id;
+  if(req.isAuthenticated()){
+    carthelper.addItemToCart(req.params.id, req, res);
+  }
+  else{
+    carthelper.addItemToSession(req.params.id, req, res);
+  }
+});
 
+shop.get('/cart', function(req, res, next){
+  res.render('shop/cart');
 });
 
 

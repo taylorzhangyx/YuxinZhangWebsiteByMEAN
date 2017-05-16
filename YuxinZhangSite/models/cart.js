@@ -4,14 +4,14 @@ var Product = require('./product');
 
 var Products = new Schema({
   product: {type: Schema.Types.ObjectId, ref: 'Product'},
-  quantity: {type: Number},
-  sumPrice: {type: Number}
+  quantity: {type: Number, default: 0},
+  sumPrice: {type: Number, default: 0}
 });
 
 var Cart = new Schema({
   products: [{type:Schema.Types.ObjectId, ref: 'Products'}],
-  totalNum: {type: Number},
-  totalPrice: {type: Number}
+  totalNum: {type: Number, default: 0},
+  totalPrice: {type: Number, default: 0},
 });
 
-module.exports = mongoose.model('Cart', Cart);
+module.exports.Cart = mongoose.model('Cart', Cart);

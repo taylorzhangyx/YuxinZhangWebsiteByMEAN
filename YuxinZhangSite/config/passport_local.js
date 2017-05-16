@@ -60,9 +60,9 @@ passport.use('local.signup', new localStrategy({
     }
     var newUser = new User();
     newUser.email = email;
-    var hash = newUser.encryptPassword(password)
     console.log(hash);
-    newUser.password = hash;
+    newUser.password = newUser.encryptPassword(password);
+    newUser.cart = req.session.cart;
     newUser.save(function(err, result) {
       if (err) {
         return done(err);

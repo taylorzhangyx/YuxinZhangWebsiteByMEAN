@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    {{> shopnav}}
+  </div>
+
+
+
+
+  {{# if session.cart}}
+  <div class="row">
+    <h1 class="col-md-6 col-md-offset-3">My Shopping Cart:</h1>
+  </div>
+    <div class="row">
+      <ul class="list-group col-md-6 col-md-offset-3">
+        {{# each session.cart.items}}
+          <li class="list-group-item">
+
+            <strong>{{this.item.name}}</strong>
+            <span class="label label-success">${{ this.item.price }}</span>
+            <div class="btn-group">
+              <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-toggle="dropdown">Action <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="/shop/add/{{this.item._id}}">Add by 1</a></li>
+                <li><a href="/shop/reduce/{{this.item._id}}">Reduce by 1</a></li>
+                <li><a href="/shop/remove/{{this.item._id}}">Remove All</a></li>
+              </ul>
+            </div>
+            <span class="badge">${{ this.price }}</span>
+            <span class="badge">{{this.qty}}</span>
+
+          </li>
+          {{/each}}
+
+
+      </ul>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+        <h1 class="pull-right"><strong>Total: ${{ session.cart.totalPrice }}</strong></h1>
+      </div>
+      <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+        <a href="/shop/checkout" type="button" class="btn btn-success pull-right">Checkout</a>
+      </div>
+    </div>
+    {{else}}
+    <div class="row">
+      <h1 class="col-md-6 col-md-offset-3">Your Shopping Cart is Empty, Why Not Go <a href="/shop">Shopping</a>?</h1>
+    </div>
+      {{/if}}
+
+
+
+      {{> footer}}
+</div>

@@ -1,6 +1,12 @@
 var express = require('express');
+var path = require('path');
 var shop = express.Router();
+var passport = require('passport');
+var csrf = require('csurf');
+var carthelper = require('./carthelper');
 
+var csrfProtection = csrf();
+shop.use(csrfProtection);
 
 //schema
 var Product = require('../../models/product');
@@ -10,7 +16,6 @@ shop.get('/', function(req, res, next) {
   var successmsg = req.flash('success')[0];
   Product.find({}).then(
     function(product) {
-      console.log(product);
       if(product){
         var productChunks = [];
         var chunkSize = 3;
@@ -25,8 +30,161 @@ shop.get('/', function(req, res, next) {
       else res.redirect('/');
     }
   ).catch(function(err){
-    console.log();
+    console.log(err);
   });
+});
+
+
+shop.get('/signin', function (req, res, next) {
+    var messages = req.flash('error');
+    res.render('shop/signin', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
+});
+
+
+shop.post('/signin',passport.authenticate('local.signin', {
+  failureRedirect:'/shop/signin',
+  failureFlash: true
+}), function(req, res, next){
+  if(req.session.oldUrl){
+    var oldUrl = req.session.oldUrl;
+    req.session.oldUrl = null;
+    res.redirect(oldUrl);
+  }
+  else{
+    res.redirect('/shop/profile');
+  }
+});
+
+
+shop.get('/signup', function (req, res, next) {
+    var messages = req.flash('error');
+    res.render('shop/signup', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
+});
+
+
+shop.post('/signup',passport.authenticate('local.signup', {
+  failureRedirect:'/shop/signup',
+  failureFlash: true
+}), function(req, res, next){
+  if(req.session.oldUrl){
+    var oldUrl = req.session.oldUrl;
+    req.session.oldUrl = null;
+    res.redirect(oldUrl);
+  }
+  else{
+    res.redirect('/shop/profile');
+  }
+});
+
+shop.get('/reduce/:id', function(req, res, next) {
+  if(req.isAuthenticated()){
+    carthelper.reduceItem(req.params.id, req, res);
+  }
+  else{
+    carthelper.reduceItemSession(req.params.id, req, res);
+  }
+});
+
+shop.get('/remove/:id', function(req, res, next) {
+  if(req.isAuthenticated()){
+    carthelper.removeItem(req.params.id, req, res);
+  }
+  else{
+    carthelper.removeItemSession(req.params.id, req, res);
+  }
+
+});
+
+shop.get('/add/:id', function(req, res, next) {
+  if(req.isAuthenticated()){
+    carthelper.addItem(req.params.id, req, res);
+  }
+  else{
+    carthelper.addItemSession(req.params.id, req, res);
+  }
+
+});
+
+
+
+shop.get('/add-to-cart/:id', function(req, res, next){
+  if(req.isAuthenticated()){
+    carthelper.addItemToCart(req.params.id, req, res);
+  }
+  else{
+    carthelper.addItemToSession(req.params.id, req, res);
+  }
+});
+
+shop.get('/cart', function(req, res, next){
+  res.render('shop/cart');
+});
+
+
+shop.get('/profile', isLoggedIn, function(req, res, next){
+  res.render('shop/profile');
+});
+
+shop.get('/logout', function(req, res, next){
+  req.logout();
+  res.render('shop/logout');
+});
+
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    console.log(req.url);
+    req.session.oldUrl = "/shop" + req.url;
+
+    console.log('old: ' + req.session.oldUrl);
+
+    res.redirect('/shop/signin');
+}
+
+shop.get('/checkout', isLoggedIn, function(req, res, next) {
+    if (!req.session.cart) {
+        return res.redirect('/shopping-cart');
+    }
+    var cart = new Cart(req.session.cart);
+    var errMsg = req.flash('error')[0];
+    res.render('shop/checkout', {total: cart.totalPrice, errMsg: errMsg, noError: !errMsg});
+});
+
+shop.post('/checkout', isLoggedIn, function(req, res, next) {
+    if (!req.session.cart) {
+        return res.redirect('/shopping-cart');
+    }
+    var cart = new Cart(req.session.cart);
+
+    var stripe = require("stripe")(
+        "sk_test_fwmVPdJfpkmwlQRedXec5IxR"
+    );
+
+    stripe.charges.create({
+        amount: cart.totalPrice * 100,
+        currency: "usd",
+        source: req.body.stripeToken, // obtained with Stripe.js
+        description: "Test Charge"
+    }, function(err, charge) {
+        if (err) {
+            req.flash('error', err.message);
+            return res.redirect('shop/checkout');
+        }
+        var order = new Order({
+            user: req.user,
+            cart: cart,
+            address: req.body.address,
+            name: req.body.name,
+            paymentId: charge.id
+        });
+        order.save(function(err, result) {
+            req.flash('success', 'Successfully bought product!');
+            req.session.cart = null;
+            res.redirect('/');
+        });
+    });
 });
 
 module.exports = shop;

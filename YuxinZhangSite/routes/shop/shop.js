@@ -4,15 +4,16 @@ var shop = express.Router();
 var passport = require('passport');
 var csrf = require('csurf');
 var carthelper = require('./carthelper');
-var Carts = require('../../models/cart');
-var Cart = Carts.Cart;
-var Item = Carts.Item;
+
 
 var csrfProtection = csrf();
 shop.use(csrfProtection);
 
 //schema
 var Product = require('../../models/product');
+var Carts = require('../../models/cart');
+var Cart = Carts.Cart;
+var Item = Carts.Item;
 
 /* GET users listing. */
 shop.get('/', function(req, res, next) {
@@ -147,12 +148,42 @@ shop.get('/profile', isLoggedIn, function(req, res, next){
   res.render('shop/profile');
 });
 
-shop.get('/logout', function(req, res, next){
+shop.get('/addproduct', isLoggedIn, function(req, res, next){
+  res.render('shop/addproduct',  {csrfToken: req.csrfToken()});
+});
 
+
+shop.post('/addproduct', isLoggedIn, function(req, res, next){
+  console.log(req.body);
+  var data = req.body;
+  var newproduct = new Product({
+    name: data.name,
+    category: data.category,
+    picture: data.picture,
+    description: data.description,
+    price: data.price,
+    seller: req.user.email
+  });
+  newproduct.save(function(err, result){
+    if(err) console.log(err);
+    res.redirect('/shop/product/' + newproduct._id);
+  });
+});
+
+shop.get('/product/:id', isLoggedIn, function(req, res, next){
+  Product.findById(req.params.id, function(err, product){
+    if(err) console.log(err);
+    res.render('shop/product', {product: product});
+  });
+});
+
+shop.get('/logout', function(req, res, next){
   req.session.cart = null;
   req.logout();
   res.render('shop/logout');
 });
+
+
 
 
 function isLoggedIn(req, res, next) {
@@ -167,48 +198,5 @@ function isLoggedIn(req, res, next) {
     res.redirect('/shop/signin');
 }
 
-shop.get('/checkout', isLoggedIn, function(req, res, next) {
-    if (!req.session.cart) {
-        return res.redirect('/shop/cart');
-    }
-    var cart = new Cart(req.session.cart);
-    var errMsg = req.flash('error')[0];
-    res.render('shop/checkout', {total: cart.totalPrice, errMsg: errMsg, noError: !errMsg});
-});
-
-shop.post('/checkout', isLoggedIn, function(req, res, next) {
-    if (!req.session.cart) {
-        return res.redirect('/shopping-cart');
-    }
-    var cart = new Cart(req.session.cart);
-
-    var stripe = require("stripe")(
-        "sk_test_fwmVPdJfpkmwlQRedXec5IxR"
-    );
-
-    stripe.charges.create({
-        amount: cart.totalPrice * 100,
-        currency: "usd",
-        source: req.body.stripeToken, // obtained with Stripe.js
-        description: "Test Charge"
-    }, function(err, charge) {
-        if (err) {
-            req.flash('error', err.message);
-            return res.redirect('shop/checkout');
-        }
-        var order = new Order({
-            user: req.user,
-            cart: cart,
-            address: req.body.address,
-            name: req.body.name,
-            paymentId: charge.id
-        });
-        order.save(function(err, result) {
-            req.flash('success', 'Successfully bought product!');
-            req.session.cart = null;
-            res.redirect('/');
-        });
-    });
-});
 
 module.exports = shop;

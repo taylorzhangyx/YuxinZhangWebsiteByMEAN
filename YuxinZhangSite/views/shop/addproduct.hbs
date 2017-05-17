@@ -1,0 +1,53 @@
+{{> shopnav}}
+<div class="row">
+  <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+    <h1>Add Product</h1>
+    <form action="/shop/addproduct" method="post" id="checkout-form">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control" required name="name">
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Category</label>
+            <select type="text" id="category" class="form-control" required name="category">
+                          <option>Book</option>
+                          <option>Movie</option>
+                          <option>Game</option>
+                          <option>Music</option>
+                          <option>Food</option>
+                          <option>Other</option>
+                        </select>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Picture-URL</label>
+            <input type="text" id="picture" class="form-control" required name="picture">
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Description</label>
+            <input type="text" id="description" class="form-control" required name="description">
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Price</label>
+            <div class="input-group">
+              <span class="input-group-addon">$</span>
+              <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+            </div>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      <input type="submit" class="btn btn-success" value="Add">
+    </form>
+  </div>
+</div>
+{{> footer}}

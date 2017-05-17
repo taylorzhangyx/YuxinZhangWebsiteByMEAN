@@ -4,15 +4,16 @@ var shop = express.Router();
 var passport = require('passport');
 var csrf = require('csurf');
 var carthelper = require('./carthelper');
-var Carts = require('../../models/cart');
-var Cart = Carts.Cart;
-var Item = Carts.Item;
+
 
 var csrfProtection = csrf();
 shop.use(csrfProtection);
 
 //schema
 var Product = require('../../models/product');
+var Carts = require('../../models/cart');
+var Cart = Carts.Cart;
+var Item = Carts.Item;
 
 /* GET users listing. */
 shop.get('/', function(req, res, next) {
@@ -148,17 +149,35 @@ shop.get('/profile', isLoggedIn, function(req, res, next){
 });
 
 shop.get('/addproduct', isLoggedIn, function(req, res, next){
-  res.render('shop/addproduct');
+  res.render('shop/addproduct',  {csrfToken: req.csrfToken()});
 });
 
 
 shop.post('/addproduct', isLoggedIn, function(req, res, next){
-  res.render('shop/profile');
+  console.log(req.body);
+  var data = req.body;
+  var newproduct = new Product({
+    name: data.name,
+    category: data.category,
+    picture: data.picture,
+    description: data.description,
+    price: data.price,
+    seller: req.user.email
+  });
+  newproduct.save(function(err, result){
+    if(err) console.log(err);
+    res.redirect('/shop/product/' + newproduct._id);
+  });
 });
 
+shop.get('/product/:id', isLoggedIn, function(req, res, next){
+  Product.findById(req.params.id, function(err, product){
+    if(err) console.log(err);
+    res.render('shop/product', {product: product});
+  });
+});
 
 shop.get('/logout', function(req, res, next){
-
   req.session.cart = null;
   req.logout();
   res.render('shop/logout');

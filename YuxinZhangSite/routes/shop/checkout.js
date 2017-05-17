@@ -19,10 +19,8 @@ checkout.get('/', isLoggedIn, function(req, res, next) {
 
 checkout.post('/', isLoggedIn, function(req, res, next) {
 
-    console.log(req.body);
   Cart.findById(req.user.cart, function(err, cart){
     if(err) console.log(err);
-    console.log(cart);
     var stripe = require("stripe")(
         "sk_test_t19uBBH0EFIJnl01cnuQIags"
     );

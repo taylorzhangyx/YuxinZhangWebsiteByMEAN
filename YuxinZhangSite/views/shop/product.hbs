@@ -1,0 +1,29 @@
+{{> shopnav}}
+<div class="row">
+  <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+    <h1>Product Details</h1>
+    <ul class="list-group">
+      <label>Name</label>
+      <li class="list-group-item">{{product.name}}</li>
+      <label>category</label>
+      <li class="list-group-item">{{product.category}}</li>
+      <label>picture</label>
+      <img src="{{ product.picture }}" alt="..." class="img-responsive">
+      <label>description</label>
+      <li class="list-group-item">{{product.description}}</li>
+      <label>price</label>
+      <li class="list-group-item">${{product.price}}</li>
+      <label>soldnum</label>
+      <li class="list-group-item">{{product.soldnum}}</li>
+      <label>seller</label>
+      <li class="list-group-item">{{product.seller}}</li>
+      <label>postdate</label>
+      <li class="list-group-item">{{product.postdate}}</li>
+      <label>upvote</label>
+      <li class="list-group-item">{{product.upvote}}</li>
+      <label>downvote</label>
+      <li class="list-group-item">{{product.downvote}}</li>
+    </ul>
+  </div>
+</div>
+{{> footer}}

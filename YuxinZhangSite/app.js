@@ -24,8 +24,8 @@ var checkout = require('./routes/shop/checkout');
 var app = express();
 
 //set up mongoDB
-// mongoose.connect('mongodb://yuxinzhang:**OctEngi0606@cluster0-shard-00-00-czv9t.mongodb.net:27017,cluster0-shard-00-01-czv9t.mongodb.net:27017,cluster0-shard-00-02-czv9t.mongodb.net:27017/yuxinzhangpw?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin');
-mongoose.connect('localhost:27017/yuxinzhangpw');
+mongoose.connect('mongodb://yuxinzhang:**OctEngi0606@cluster0-shard-00-00-czv9t.mongodb.net:27017,cluster0-shard-00-01-czv9t.mongodb.net:27017,cluster0-shard-00-02-czv9t.mongodb.net:27017/yuxinzhangpw?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin');
+// mongoose.connect('localhost:27017/yuxinzhangpw');
 mongoose.Promise = global.Promise;
 require('./config/passport_local');
 

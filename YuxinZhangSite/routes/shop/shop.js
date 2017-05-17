@@ -147,12 +147,24 @@ shop.get('/profile', isLoggedIn, function(req, res, next){
   res.render('shop/profile');
 });
 
+shop.get('/addproduct', isLoggedIn, function(req, res, next){
+  res.render('shop/addproduct');
+});
+
+
+shop.post('/addproduct', isLoggedIn, function(req, res, next){
+  res.render('shop/profile');
+});
+
+
 shop.get('/logout', function(req, res, next){
 
   req.session.cart = null;
   req.logout();
   res.render('shop/logout');
 });
+
+
 
 
 function isLoggedIn(req, res, next) {

@@ -2,7 +2,7 @@ Stripe.setPublishableKey('sk_test_t19uBBH0EFIJnl01cnuQIags');
 
 var $form = $('#checkout-form');
 
-$form.submit(function (event) {
+$('#checkout-form').submit(function (event) {
     $('#charge-error').addClass('hidden');
     $form.find('button').prop('disabled', true);
     Stripe.card.createToken({
@@ -16,8 +16,8 @@ $form.submit(function (event) {
 });
 
 function stripeResponseHandler(status, response) {
+    alert('1');
     if (response.error) { // Problem!
-
         // Show the errors on the form
         $('#charge-error').text(response.error.message);
         $('#charge-error').removeClass('hidden');
@@ -29,7 +29,7 @@ function stripeResponseHandler(status, response) {
         var token = response.id;
 
         // Insert the token into the form so it gets submitted to the server:
-        $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+        $form.append($('<input type="hidden" id="stripeToken" name="stripeToken" />').val(token));
 
         // Submit the form:
         $form.get(0).submit();

@@ -52,6 +52,9 @@ shop.get('/', function(req, res, next) {
 });
 
 
+
+
+
 shop.get('/signin', function (req, res, next) {
     var messages = req.flash('error');
     res.render('shop/signin', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
@@ -197,6 +200,42 @@ function isLoggedIn(req, res, next) {
 
     res.redirect('/shop/signin');
 }
+
+
+shop.get('/:category', function(req, res, next) {
+  var successmsg = req.flash('success')[0];
+  Product.find({category: req.params.category}).then(
+    function(product) {
+      if(product){
+        var productChunks = [];
+        var chunkSize = 3;
+        for (var i = 0; i < product.length; i += chunkSize) {
+          productChunks.push(product.slice(i, i + chunkSize));
+        }
+        if(req.isAuthenticated()){
+          Cart.findById(req.user.cart, function(err, cart){
+            res.render('shop/shop', {
+              products: productChunks,
+              msg: successmsg,
+              cart: cart
+            });
+          });
+        }
+        else{
+          res.render('shop/shop', {
+            products: productChunks,
+            msg: successmsg,
+            cart: req.session.cart
+          });
+        }
+
+      }
+      else res.redirect('/');
+    }
+  ).catch(function(err){
+    console.log(err);
+  });
+})
 
 
 module.exports = shop;

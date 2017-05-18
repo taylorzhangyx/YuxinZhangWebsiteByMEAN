@@ -47,6 +47,14 @@ body {
   z-index: 10;
 }
 
+.slid2{
+    margin-bottom: 70px;
+}
+
+.slid3{
+    margin-bottom: 40px;
+}
+
 /* Declare heights because of positioning of img element */
 .carousel .item {
   height: 500px;

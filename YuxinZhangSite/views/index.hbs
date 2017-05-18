@@ -10,32 +10,32 @@
   </ol>
   <div class="carousel-inner" role="listbox">
     <div class="item active">
-      <img class="first-slide" src="https://upload.wikimedia.org/wikipedia/en/thumb/6/63/IMG_%28business%29.svg/1280px-IMG_%28business%29.svg.png" alt="First slide">
+      <img class="first-slide" src="file/profile.jpg" alt="First slide">
       <div class="container">
         <div class="carousel-caption">
-          <h1>Example headline.</h1>
-          <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-          <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+          <h1>Actively Looking For Full-Time Software Engineer Job</h1>
+          <p>I'm a new Grad from University at Buffalo, SUNY. With Solid Knowledge in Data Structure and Deep Understanding in Algorithm, I'm actively looking for Entry Level Full-Time opportunity.</p>
+          <p><a class="btn btn-lg btn-primary" href="#profile" role="button">View Profile</a></p>
         </div>
       </div>
     </div>
     <div class="item">
-      <img class="second-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
+      <img class="second-slide" src="file/shopcover.jpg" alt="Second slide">
       <div class="container">
         <div class="carousel-caption">
-          <h1>Another example headline.</h1>
-          <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-          <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+          <h1>Yuxin's Shop</h1>
+          <p>MongoDB, Expressjs, Node.js based web application runs on AWS EC2</p>
+          <p><a class="btn btn-lg btn-primary" href="/shop" role="button">Learn more</a></p>
         </div>
       </div>
     </div>
     <div class="item">
-      <img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
+      <img class="third-slide" src="file/github.jpg" alt="Third slide">
       <div class="container">
         <div class="carousel-caption">
-          <h1>One more for good measure.</h1>
-          <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-          <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+          <h1>My Github Page</h1>
+          <p>A gallary which shows Verieties of my projects, my contributions and my practice</p>
+          <p><a class="btn btn-lg btn-primary" href="https://github.com/taylorzhangyx" role="button">Visit My Github</a></p>
         </div>
       </div>
     </div>
@@ -54,15 +54,15 @@
 <div class="container marketing">
 
   <!-- Three columns of text below the carousel -->
-  <div class="row">
-    <div class="col-lg-4">
+  <div class="row" id= 'profile'>
+    <div class="col-lg-4" >
     </div>
     <!-- /.col-lg-4 -->
-    <div class="col-lg-4 selfcard">
+    <div class="col-lg-4 selfcard" >
       <img class="img-circle" src="./images/index/suitHead100.png" alt="Generic placeholder image" width="140" height="140">
       <h2>Yuxin Zhang</h2>
       <p>EE MS <a href="http://www.buffalo.edu/">@SUNY Buffalo</a>. Solid knowledge in Algorithm and Data Structure. Skills in <a href="https://nodejs.org/en/">Node.js</a>, <a href="https://www.mongodb.com/">MongoDB</a>, <a href="https://expressjs.com/">Express</a>, REST API and Cloud Computing. Experienced with JAVA & C++</p>
-      <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+      <p><a class="btn btn-primary" href="/file/yuxin_resume.pdf" role="button">Resume &raquo;</a></p>
     </div>
     <!-- /.col-lg-4 -->
     <div class="col-lg-4">
@@ -78,11 +78,16 @@
 
   <div class="row featurette">
     <div class="col-md-7">
-      <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h2 class="col-md-offset-3 featurette-heading"><a href="/shop" class="featuretitle">Yuxin's Shop</a></h2>
+      <ul class="lead">
+        <li>Allow user <a href="/shop/signup">Register</a> and <a href="/shop/signin">Signin</a> via <a href="http://passportjs.org/">passportjs</a>. Put website under production by check account authentication and <a href="https://github.com/expressjs/csurf">csurf</a> code.</li>
+        <li><a href="/shop/cart">Shopping cart</a> offers anonymous shopping management when not login and personal shopping management after login. Both of them can check out and make payment via <a href="https://stripe.com/">Stripe</a>.</li>
+        <li>Automatic transfer items in anonymous cart into personal cart after user <a href="/shop/signin">Signin</a>.</li>
+        <li>Connect <a href="https://www.mongodb.com/">MongoDB</a> to display product by category, record <a href="/shop/product/591bc7fbc0425d1914a91ab0">product information</a> and allow user to <a href="/shop/addproduct">add new products</a> into stock.</li>
+      </ul>
     </div>
     <div class="col-md-5">
-      <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+      <a href="/shop"><img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" src="/file/shop.jpg" alt="/file/shop.jpg"></a>
     </div>
   </div>
 
@@ -90,11 +95,16 @@
 
   <div class="row featurette">
     <div class="col-md-7 col-md-push-5">
-      <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      <h2 class="col-md-offset-3 featurette-heading"><a href="https://github.com/taylorzhangyx/Chatting-APP-and-Network-Routing" class="featuretitle">Chatting APP</a></h2>
+      <ul class="lead">
+        <li>Implemented <a href="https://github.com/taylorzhangyx/Chatting-APP-and-Network-Routing/blob/master/1Chatting%20Application/zhang25_assignment1.c">chatting server</a> to accept client log in request, maintain client’s status, routing messages and files and analysis statistics</li>
+        <li>Implemented <a href="https://github.com/taylorzhangyx/Chatting-APP-and-Network-Routing/blob/master/1Chatting%20Application/zhang25_assignment1.c">chatting client</a> to send login requests, accepts server message and command, send message and files to server</li>
+        <li>Use one core hard timer to simulate <a href="https://github.com/taylorzhangyx/Chatting-APP-and-Network-Routing/blob/master/2Reliable%20Transport%20Protocols/Analysis_Assignment2.pdf">multiple soft timer</a> to schedule <a href="https://en.wikipedia.org/wiki/Routing_table">Forwarding table</a> for <a href="https://en.wikipedia.org/wiki/Distance-vector_routing_protocol">Distance Vector Protocol</a>, which boost routing speed</li>
+        <li>Utilize <a href="https://www.cs.cornell.edu/~asdas/research/dsn02-swim.pdf">SWIM</a> (Scalable Weakly-consistent Infection-style Process Group Membership Protocol) and <a href="https://en.wikipedia.org/wiki/Gossip_protocol">Gossip protocol</a> for fault-tolerant system to detect server status and manage connections</li>
+      </ul>
     </div>
     <div class="col-md-5 col-md-pull-7">
-      <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+      <a href="https://github.com/taylorzhangyx/Chatting-APP-and-Network-Routing"><img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" src="/file/chattingapp.jpg" alt="Generic placeholder image"></a>
     </div>
   </div>
 
@@ -102,15 +112,17 @@
 
   <div class="row featurette">
     <div class="col-md-7">
-      <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      <h2 class="featurette-heading col-md-offset-3 "><a href="https://github.com/taylorzhangyx/MasterLabyrinth" class="featuretitle">Master Labyrinth</a></span></h2>
+      <ul class="lead">
+        <li>Followed OOD to use <a href="/file/mlstructure.PNG"></a>4 layered structures to organize 8 kinds, in total 101 multi-connected components displayed with playable GUI based on Java SWING within 5000 lines of concise codes and detailed Java Doc</li>
+        <li>Rewrote peers’ codes to improve scalability and readability by reducing 40% lines, separating 30% of the methods and utilizing better algorithms to improve performance by 35% </li>
+        <li>Collaborated with 4 team members on <a href="https://bitbucket.org/">BitBucket</a> guided by over 300 Junit Tests Implemented functions to save running program into backup file and be able to 100% restore to former status</li>
+      </ul>
     </div>
     <div class="col-md-5">
-      <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+      <a href="https://github.com/taylorzhangyx/MasterLabyrinth"><img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" src="/file/labyrinth.PNG" alt="Generic placeholder image"></a>
     </div>
   </div>
-
-  <hr class="featurette-divider">
 
   <!-- /END THE FEATURETTES -->
 

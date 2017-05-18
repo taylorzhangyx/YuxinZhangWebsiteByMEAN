@@ -170,7 +170,7 @@ shop.post('/addproduct', isLoggedIn, function(req, res, next){
   });
 });
 
-shop.get('/product/:id', isLoggedIn, function(req, res, next){
+shop.get('/product/:id', function(req, res, next){
   Product.findById(req.params.id, function(err, product){
     if(err) console.log(err);
     res.render('shop/product', {product: product});

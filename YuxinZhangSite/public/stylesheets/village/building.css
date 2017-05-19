@@ -1,0 +1,62 @@
+@charset "utf-8";
+/* CSS Document */
+
+.build_resume{
+    position: absolute;
+    left: 512px;
+    top: 64px;
+}
+
+.build_project{
+    position: absolute;
+    left: 350px;
+    top: 305px;
+}
+
+.build_game{
+    position: absolute;
+    left: 690px;
+    top: 245px;
+}
+
+.resume_tag{
+    position: absolute;
+    left: 449px;
+    top: 28px;
+}
+
+.project_tag{
+    position: absolute;
+    left: 278px;
+    top: 265px;
+}
+
+.game_tag{
+    position: absolute;
+    left: 625px;
+    top: 210px;
+}
+
+.build_tag{
+}
+@media screen and (max-width: 960px) {
+    .building{
+        max-width:300px;
+        margin:auto;
+        text-align:center;
+    }
+    .build_tag{
+    }
+    .building_container{
+        clear: both;
+        float: left;
+        margin:auto;
+    }
+    
+    [class*="build"] {
+        left:0px;
+        top: 0px;
+        display: inline-block;
+        position: static;
+    }
+}

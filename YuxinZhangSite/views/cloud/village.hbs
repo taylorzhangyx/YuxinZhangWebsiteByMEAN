@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>YuxinZhang - Actively Seeking Entry Level Job in Software Engineer</title>
+<link href="/stylesheets/village/page.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/village/village.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/village/building.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/village/character.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="/javascripts/village/game_start.js"></script>
+<script type="text/javascript" src="/javascripts/village/player.js"></script>
+<script type="text/javascript" src="/javascripts/village/building.js"></script>
+<script type="text/javascript" src="/javascripts/village/general.js"></script>
+<script type="text/javascript" src="/javascripts/village/world.js"></script>
+</head>
+
+<body class = "body">
+<b></b>
+<div class = "world_map">
+    <audio id="bgm" controls autoplay loop onloadeddata="lowervolume()">
+      <source src="/file/bgm/postmeridie.mp3" type="audio/mpeg">
+    </audio>
+    <!--village-->
+    <div id="village" class = "village">
+        <!--village name-->
+        <div id="village_name" class = "village_name village_width">
+            <img alt="village_name" class="image_village_name" src="/images/village/village_name.png" >
+        </div><!--end of village name-->
+
+        <!--village map-->
+        <div id="village_map" class = "village_map">
+
+            <!--Instruction-->
+            <div id = "instruction" class = "instruction"><img alt="instruction" class = "instruction_img" src="/images/world/instruction.png" ></div>
+
+            <!--character-->
+            <div id="character" class = "character"> <img alt = "character" src="/images/character/stand.png" > </div>
+
+            <div class="building">
+                <!--building of resume-->
+                <a class= "building_container" href="/file/yuxin_resume.pdf">
+                    <div id="build_resume" class = "build_resume"> <img alt = "build_resume" src="/images/village/build_resume.png" > </div>
+                    <div class = "build_tag resume_tag"> <img alt = "build_resume_tag" src="/images/village/Resume Castle.png" > </div>
+                </a>
+                <!--building of project-->
+                <a class= "building_container" href="/#profile">
+                    <div id="build_project" class = "build_project clickable"> <img alt = "build_project" src="/images/village/build_project.png" > </div>
+                    <div class = "build_tag project_tag"> <img alt = "build_project_tag" src="/images/village/Project Church.png" > </div>
+                </a>
+                <!--building of game-->
+                <a class= "building_container" href="https://taylorzhangyx.github.io/Leetcodes/">
+                    <div id="build_game" class = "build_game clickable"> <img alt = "build_game" src="/images/village/build_game.png" > </div>
+                    <div class = "build_tag game_tag"> <img alt = "build_game_tag" src="/images/village/Recreation Hotel.png" > </div>
+                </a>
+            </div>
+
+            <!--contact-->
+            <div class = "contact_container">
+              <a href="/">
+                  <div id="home" class = "home contact build_tag"><img  class = "home_img contact" alt="home" src="/images/index/50logo.jpg"></div>
+              </a>
+                <a href="https://www.linkedin.com/in/yuxin-zhang-5248b7b5">
+                    <div id="linkedin" class = "linkedin contact build_tag"><img  class = "linkedin_img contact" alt="linkedin" src="/images/contact/linkedin.png"></div>
+                </a>
+
+                <a href="https://www.facebook.com/yuxin.zhang.9406">
+                    <div id="facebook" class = "facebook contact build_tag"><img  class = "facebook_img contact" alt="facebook" src="/images/contact/facebook.png"></div>
+                </a>
+
+                <a href="https://github.com/taylorzhangyx">
+                    <div id="github" class = "github contact build_tag"><img  class = "github_img contact" alt="github" src="/images/contact/github.png"></div>
+                </a>
+            </div><!--end of contact-->
+
+        </div><!--end of village-->
+
+
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+@charset "utf-8";
+/* CSS Document */
+
+.village{
+    position:relative;
+    margin: auto;
+    background:url(/images/village/ground.png);
+}
+
+.village_width{
+    width: 1088px;
+}
+
+.village_name{
+    margin:auto;
+    height: 190px;
+    text-align: center;
+}
+
+.image_village_name{
+    display: inline-block;
+}
+
+.village_map{
+    margin: auto;
+    position:relative;
+    width: 1088px;
+    height: 512px;
+    background:url(/images/village/village_map.png);
+}
+
+@media screen and (max-width: 960px) {
+    .village{
+        background: none;
+        float: left;
+    }
+    .village_width{
+        width: 100%;
+    }
+    .village_name .image_village_name{
+        float: left;
+        width: 100%;
+        max-width: 400px;
+    }
+    .village_map{
+        float:left;
+        width: 100%;
+        background: none;
+    }
+}

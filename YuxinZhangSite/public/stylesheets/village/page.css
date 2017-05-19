@@ -1,0 +1,84 @@
+@charset "utf-8";
+/* CSS Document */
+.body{
+    background: hsla(145,63%,42%,1.00);
+    align-content:center;
+    cursor: url(/images/cursor/cursor.png), auto;
+}
+
+.world_map{
+}
+
+.clickable{
+    cursor: url(/images/cursor/click.png), auto;
+}
+
+.instruction{
+    position: absolute;
+    top: 100px;
+    left: 270px;
+    z-index: 3;
+}
+
+.instruction_img{
+}
+
+.contact{
+    float:left;
+    padding: 5px 5px 5px 5px;
+}
+
+.contact:hover{
+    -ms-transform: scale(1.2,1.2); /* IE 9 */
+    -webkit-transform: scale(1.2,1.2); /* Safari */
+    transform: scale(1.2,1.2); /* Standard syntax */
+}
+
+.contact_container{
+    position: absolute;
+    top: 420px;
+    left: 631px;
+}
+
+.github{
+    top: 0px;
+    left: 0px;
+}
+
+.linkedin{
+    top: 0px;
+    left: 70px;
+}
+
+.facebook{
+    top: 0px;
+    left: 140px;
+}
+
+a {
+    target: "_blank";
+    cursor: url(/images/cursor/click.png), auto;
+}
+
+@media screen and (max-width: 960px) {
+    audio {
+        display: none;
+    }
+
+    .body{
+        background: url(/images/village/ground.png);
+    }
+
+    .instruction{
+        float:left;
+        left:auto;
+        top:auto;
+        margin:auto;
+        z-index:0;
+        position:static;
+    }
+    .contact_container{
+        display: block;
+        position: static;
+    }
+}

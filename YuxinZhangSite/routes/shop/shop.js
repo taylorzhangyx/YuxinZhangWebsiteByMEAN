@@ -125,6 +125,10 @@ shop.get('/add-to-cart/:id', function(req, res, next){
   }
 });
 
+shop.get('/about', function(req,res, next){
+  res.render('shop/about');
+});
+
 
 shop.get('/cart', function(req, res, next){
   //if log in

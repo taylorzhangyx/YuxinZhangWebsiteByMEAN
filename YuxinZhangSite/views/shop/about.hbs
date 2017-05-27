@@ -1,0 +1,91 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="/javascripts/shop/about.js"></script>
+
+
+<div class="container">
+
+  {{> shopnav}}
+
+  <!-- sidebar -->
+  <div class="row">
+    <div class="col-sm-4 col-md-3 sidebar">
+      <div class="mini-submenu">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </div>
+      <div class="list-group">
+        <span href="#" class="list-group-item active">
+            Submenu
+            <span class="pull-right" id="slide-submenu">
+                <i class="fa fa-times"></i>
+            </span>
+        </span>
+        <a href="#" class="list-group-item">
+          <i class="fa fa-comment-o"></i> Lorem ipsum
+        </a>
+        <a href="#" class="list-group-item">
+          <i class="fa fa-search"></i> Lorem ipsum
+        </a>
+        <a href="#" class="list-group-item">
+          <i class="fa fa-user"></i> Lorem ipsum
+        </a>
+        <a href="#" class="list-group-item">
+          <i class="fa fa-folder-open-o"></i> Lorem ipsum <span class="badge">14</span>
+        </a>
+        <a href="#" class="list-group-item">
+          <i class="fa fa-bar-chart-o"></i> Lorem ipsumr <span class="badge">14</span>
+        </a>
+        <a href="#" class="list-group-item">
+          <i class="fa fa-envelope"></i> Lorem ipsum
+        </a>
+      </div>
+    </div>
+
+
+    <div class="content col-sm-8 col-md-9">
+      <h1>About Yuxin's Shop</h1>
+      <h3>Introduction</h3>
+      <p>This eCommerce website based on Node.js, Express, MongoDB with various middle ware that enables Various API.</p>
+
+      <h3>Schema</h3>
+      <h4>Product</h4>
+<pre>
+{
+    name: {type: String, required: true},
+    category: {type: String, retuqired: true, default: 'new'},
+    picture: {type: String, required: true},
+    description: {type: String, required: true},
+    price: {type: Number, required: true},
+    soldnum: {type: Number, required: true, default: 0},
+    seller: {type: String, required: true},
+    postdate: {type: Date, default: Date.now},
+    upvote: {type: Number, default: 0},
+    downvote: {type: Number, default: 0 }
+}
+</pre>
+      <p>Porduct object stores basic information about one product include all above</p>
+      <p><code>category</code> is one predefiend field, you should choose amony the following options:</p>
+      <ul>
+        <li>Book</li>
+        <li>Movie</li>
+        <li>Game</li>
+        <li>Music</li>
+        <li>Food</li>
+        <li>Other</li>
+      </ul>
+      <p><code>picture</code> is the address to online link, you can store the picture on any cloud server then past the picture link here.</p>
+      <p><code>price</code> is the number stands for the price of this product in USD.</p>
+      <p><code>seller</code> will auto filled when the user add product to stock with the user's email address.</p>
+      <p><code>postdate</code> is the date and time that this product was added to stock. This field is auto filled based on server time.</p>
+
+
+
+    </div>
+  </div>
+
+
+
+
+
+</div>

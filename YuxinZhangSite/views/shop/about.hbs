@@ -1,0 +1,443 @@
+
+
+
+<div class="container">
+
+  {{> shopnav}}
+
+<!-- return to top -->
+<a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+
+  <!-- sidebar -->
+  <div class="row">
+    <div class="col-sm-4 col-md-3 sidebar">
+      <div class="mini-submenu">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </div>
+      <div class="list-group">
+        <span href="#" class="list-group-item active">
+            Documentation
+            <span class="pull-right" id="slide-submenu">
+                <i class="fa fa-times"></i>
+            </span>
+        </span>
+        <a href="#introduction" class="list-group-item list-group-item-title">
+           Introduction
+        </a>
+        <a href="#schema" class="list-group-item list-group-item-title">
+           Schema
+        </a>
+        <a href="#schema-product" class="list-group-item">
+           <span class="label label-default">Schema</span> Product
+        </a>
+        <a href="#schema-user" class="list-group-item">
+           <span class="label label-default">Schema</span> User
+        </a>
+        <a href="#schema-cart" class="list-group-item">
+           <span class="label label-default">Schema</span> Cart
+        </a>
+        <a href="#schema-item" class="list-group-item">
+           <span class="label label-default">Schema</span> Item
+        </a>
+        <a href="#schema-order" class="list-group-item">
+           <span class="label label-default">Schema</span> Order
+        </a>
+        <!-- shopapi -->
+        <a href="#shop" class="list-group-item list-group-item-title">
+           Shop API
+        </a>
+        <a href="#shop-product-display" class="list-group-item">
+           <span class="label label-success">GET</span> Products Display
+        </a>
+        <a href="#shop-product-display-category" class="list-group-item">
+           <span class="label label-success">GET</span> Products Display on Category
+        </a>
+        <a href="#shop-add-product-get" class="list-group-item">
+           <span class="label label-success">GET</span> Add new product to stock
+        </a>
+        <a href="#shop-add-product-post" class="list-group-item">
+           <span class="label label-info">POST</span> Add new product to stock
+        </a>
+        <a href="#shop-product" class="list-group-item">
+           <span class="label label-success">GET</span> Product details
+        </a>
+
+        <!-- cart api -->
+        <a href="#cart" class="list-group-item list-group-item-title">
+           Shopping Cart API
+        </a>
+        <a href="#cart-display" class="list-group-item">
+           <span class="label label-success">GET</span> Cart Display
+        </a>
+        <a href="#cart-add-prodcut" class="list-group-item">
+           <span class="label label-success">GET</span> Add new products to cart
+        </a>
+        <a href="#cart-reduce-product" class="list-group-item">
+           <span class="label label-success">GET</span> Remove one product from cart
+        </a>
+        <a href="#cart-remove-product" class="list-group-item">
+           <span class="label label-success">GET</span> Remove products from cart
+        </a>
+
+        <a href="#user" class="list-group-item list-group-item-title">
+           User API
+        </a>
+        <a href="#user-signin" class="list-group-item">
+           <span class="label label-success">GET</span> User Signin
+        </a>
+        <a href="#user-signin-post" class="list-group-item">
+           <span class="label label-info">POST</span> User Signin
+        </a>
+        <a href="#user-signup" class="list-group-item">
+           <span class="label label-success">GET</span> User Signup
+        </a>
+        <a href="#user-signup-post" class="list-group-item">
+           <span class="label label-info">POST</span> User Signup
+        </a>
+        <a href="#user-logout" class="list-group-item">
+           <span class="label label-success">GET</span> User Logout
+        </a>
+      </div>
+    </div>
+
+
+    <div class="content col-sm-8 col-md-9">
+      <h1>About Yuxin's Shop</h1>
+      <h2 id="introduction">Introduction</h2>
+      <p>This eCommerce website based on Node.js, Express, MongoDB with various middle ware that enables Various API.</p>
+
+<!--  model schema in database, RESTful API -->
+      <h2 id="schema">Schema</h2>
+      <h3 id="schema-product">Product</h3>
+<pre>
+{
+  name: {type: String, required: true},
+  category: {type: String, retuqired: true, default: 'new'},
+  picture: {type: String, required: true},
+  description: {type: String, required: true},
+  price: {type: Number, required: true},
+  soldnum: {type: Number, required: true, default: 0},
+  seller: {type: String, required: true},
+  postdate: {type: Date, default: Date.now},
+  upvote: {type: Number, default: 0},
+  downvote: {type: Number, default: 0 }
+}
+</pre>
+      <p>Porduct schema desines basic information about one product include all above</p>
+      <p><code>category</code> is one predefiend field, you should choose amony the following options:</p>
+      <ul>
+        <li>Book</li>
+        <li>Movie</li>
+        <li>Game</li>
+        <li>Music</li>
+        <li>Food</li>
+        <li>Other</li>
+      </ul>
+      <p><code>picture</code> is the address to online link, you can store the picture on any cloud server then past the picture link here.</p>
+      <p><code>price</code> is the number stands for the price of this product in USD.</p>
+      <p><code>seller</code> will auto filled when the user add product to stock with the user's email address.</p>
+      <p><code>postdate</code> is the date and time that this product was added to stock. This field is auto filled based on server time.</p>
+
+      <h3 id="schema-user">User</h3>
+      <pre>
+{
+  email: {type: String, required: true},
+  password: {type: String, required: true},
+  signUpDate: { type: Date, default: Date.now},
+  lastLogin: { type: Date, default: Date.now},
+  address: { type: String},
+  cart: { type: Schema.Types.ObjectId, ref: 'Cart' }
+}
+</pre>
+      <p>User schema defines basic user information</p>
+      <p><code>email</code> is the email address that user used for login and receive email from system. This needs to be a valid email to register.</p>
+      <p><code>password</code> is the user password that encripted with <a href="https://www.npmjs.com/package/bcryptjs">bcryptjs</a>.</p>
+      <p><code>signUpDate</code> is the date that this user registerd. This is generated by system when this user first signup.</p>
+      <p><code>lastLogin</code> is the date taht this user last login. System will update this date everytime when this the user login.</p>
+      <p><code>address</code> is the shipping address of user.</p>
+      <p><code>cart</code> is an uniqe id of cart in database, corresponding to the uniqe cart object of this user. A reference to the history of this user;s shopping cart.</p>
+
+      <h3 id="schema-cart">Cart</h3>
+<pre>
+{
+  item: [{type: Schema.Types.ObjectId, ref: 'Item'}],
+  totalQty: {type: Number, default: 0},
+  totalPrice: {type: Number, default: 0, get: getPrice, set: setPrice},
+  user: {type: Schema.Types.ObjectId, ref: 'User'}
+}
+</pre>
+      <p>Cart schema defines a collection of product that in user cart and the totol price and total quantity.</p>
+      <p><code>item</code> is an array of <b>Item</b> that represents the selected products in user's cart.</p>
+      <p><code>totalQty</code> is the total number of products in user's shopping cart.</p>
+      <p><code>totalPrice</code> is the total price of products in user's shopping cart in <b>USD</b>.</p>
+      <p><code>user</code> is an unique id of user that is the reference to this cart's owner.</p>
+
+      <h3 id="schema-item">Item</h3>
+      <pre>
+{
+  product: {type: Schema.Types.ObjectId, ref: 'Product'},
+  quantity: {type: Number, default: 0},
+  sumPrice: {type: Number, default: 0, get: getPrice, set: setPrice},
+  cart:  {type: Schema.Types.ObjectId, ref: 'Cart'}
+}
+</pre>
+      <p>Item schema defines the product that selected by user. It contains:</p>
+      <p><code>product</code> is the reference of selected product, with the value of product id, represent the unique product in this shopping cart.</p>
+      <p><code>quantity</code> is the number of this product that the user selected. </p>
+      <p><code>sumPrice</code> is the total price of this kind of product with the number of quantity.</p>
+      <p><code>cart</code> is a reference to shopping cart that hold this Item.</p>
+
+      <h3 id="schema-order">Order</h3>
+      <pre>
+{
+  user: {type: Schema.Types.ObjectId, ref: 'User'},
+  cart: {type: Object, required: true},
+  address: {type: String, required: true},
+  name: {type: String, required: true},
+  paymentId: {type: String, required: true}
+}
+</pre>
+      <p>Order is a record of user payment.</p>
+      <p><code>user</code> is a reference to the user that pay this bill.</p>
+      <p><code>cart</code> is a cart object that stores all the product in cart when make this payment. This include all the product information.</p>
+      <p><code>address</code> is the address these products need to ship to.</p>
+      <p><code>name</code> is the buyer's name which will be printed on the shipping package.</p>
+      <p><code>paymentId</code> is an unique id that provided by stripe that used to track the payment in stripe payment system.</p>
+
+      <!-- shopping page API -->
+      <h2 id="shop">Shop API</h2>
+
+      <h3 id="shop-product-display">Products Display</h3>
+      <p><span class="label label-success">GET</span><pre>/shop</pre></p>
+      <p>Loop through products in database and return an object include products, error message and current shopping cart.</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <pre>
+{
+  products: [Product],
+  msg: String,
+  cart: Cart
+}
+</pre>
+      <p><code>products</code> is an Array of Product object.</p>
+      <p><code>msg</code> is a String that represents successmsg if exists.</p>
+      <p><code>cart</code> is the current shopping cart object that this user have.</p>
+
+      <!-- Products Display on Category -->
+      <h3 id="shop-product-display-category">Products Display on Category</h3>
+      <p><span class="label label-success">GET</span><pre>/shop/:category</pre></p>
+      <p>Loop through products in database and return an object include products in matched category, error message and current shopping cart.</p>
+      <p><span class="label label-primary">Params</span></p>
+      <p><code>category</code>: one of the predefined category among <b>Book</b>, <b>Movie</b>, <b>Game</b>, <b>Music</b>, <b>Food</b> and <b>Other</b>.</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <pre>
+{
+  products: [Product],
+  msg: String,
+  cart: Cart
+}
+</pre>
+      <p><code>products</code> is an Array of Product object that is in the category.</p>
+      <p><code>msg</code> is a String that represents successmsg if exists.</p>
+      <p><code>cart</code> is the current shopping cart object that this user have.</p>
+
+
+      <!-- GET add new product to stock -->
+      <h3 id="shop-add-product-get">add new product to stock</h3>
+      <p><span class="label label-success">GET</span><pre>/shop/addproduct</pre></p>
+      <p>Retrive the product page with cdrfToken</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <pre>
+{
+csrfToken: String
+}
+</pre>
+      <p><code>csrfToken</code> is an String get from server to prevent csrf attack. Put it in the form.</p>
+
+
+      <!-- POST add new product to stock -->
+      <h3 id="shop-add-product-post">add new product to stock</h3>
+      <p><span class="label label-info">POST</span><pre>/shop/addproduct</pre></p>
+      <p>Submit a form of product information to create new product in stock.</p>
+      <p><span class="label label-danger">SUBMIT</span></p>
+      <pre>
+{
+  name: String,
+  category: String,
+  picture: String,
+  description: String,
+  price: Number,
+}
+</pre>
+      <p>Please refer the schema of Product to see the details of above section</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <p>When failed, return to add product page with error message shows on the top.</p>
+      <p>When success, return to product detail page which show the information about this product.</p>
+
+
+      <!-- GET product details -->
+      <h3 id="shop-product">Product details</h3>
+      <p><span class="label label-success">GET</span><pre>/shop/product/:id</pre></p>
+      <p>Show the details of product with <b>id</b>.</p>
+      <p><span class="label label-primary">Params</span></p>
+      <p><code>id</code>: the id of selected product.</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <pre>
+      {
+      product: Product
+      }
+      </pre>
+      <p><code>product</code> is an matched Product object in stock.</p>
+
+
+      <!-- End of shopping page API -->
+
+      <!-- shopping cart related API -->
+      <h2 id="cart">Shopping Cart API</h2>
+
+      <h3 id="cart-display">Cart Display</h3>
+      <p><span class="label label-success">GET</span><pre>/shop/cart</pre></p>
+      <p>If the user is loged in, This API will retrive cart object from database with the reference to unique shopping cart on this user.</p>
+      <p>if the user not loged in, this API will visit temporary seesion to access cart object.</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <pre>
+{
+  cart: Cart
+}
+</pre>
+      <p><code>cart</code> is an Cart object.</p>
+
+
+      <!-- Add new products to cart -->
+      <h3 id="cart-add-prodcut">Add new products to cart</h3>
+      <p><span class="label label-success">GET</span><pre>/shop/add-to-cart/:id</pre></p>
+      <p>Add one new product with <b>id</b> to shopping cart</p>
+      <p><span class="label label-primary">Params</span></p>
+      <p><code>id</code>: the id of selected product.</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <p>When success, one product will add to cart and redirect to main shopping page.</p>
+      <p>When fail, error message will show up on top of web page.</p>
+
+
+      <!-- Remove one products from cart -->
+      <h3 id="cart-reduce-product">Remove one product from cart</h3>
+      <p><span class="label label-success">GET</span><pre>/shop/reduce/:id</pre></p>
+      <p>Remove one product with <b>id</b> from shopping cart</p>
+      <p><span class="label label-primary">Params</span></p>
+      <p><code>id</code>: the id of selected product.</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <p>When success, one product will remove from cart and redirect to main shopping page. If the left product number become zero, this product will be removed from cart.</p>
+      <p>When fail, error message will show up on top of web page.</p>
+
+
+      <!-- Remove products from cart -->
+      <h3 id="cart-remove-product">Remove products from cart</h3>
+      <p><span class="label label-success">GET</span><pre>/shop/remove/:id</pre></p>
+      <p>Remove one kind of product with <b>id</b> from shopping cart.</p>
+      <p><span class="label label-primary">Params</span></p>
+      <p><code>id</code>: the id of selected product.</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <p>When success, one line of product will remove from cart no mater how many there are in the cart and redirect to main shopping page.</p>
+      <p>When fail, error message will show up on top of web page.</p>
+
+      <!-- End of Shopping cart related API -->
+
+
+      <!-- User function related API -->
+      <h2 id="user">User API</h2>
+
+      <h3 id="user-signin">User Signin</h3>
+      <p><span class="label label-success">GET</span><pre>/shop/signin</pre></p>
+      <p>Retrive singnin page and get csrfToken for submit form.</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <pre>
+{
+  csrfToken: String,
+  messages: String,
+  hasErrors: bool
+}
+</pre>
+      <p><code>csrfToken</code> is a String get from server to prevent csrf attack. Put this Token under form submit with user login infos.</p>
+      <p><code>messages</code> is a String that represents error message if exists.</p>
+      <p><code>hasErrors</code> is the bool indicate if there is errors.</p>
+
+
+      <h3 id="user-signin-post">User Signin</h3>
+      <p><span class="label label-info">POST</span><pre>/shop/signin</pre></p>
+      <p>Submit user name and password then process login in passport.</p>
+      <p><span class="label label-danger">SUBMIT</span></p>
+      <pre>
+{
+  email: String,
+  password: String,
+  _csrf: String
+}
+      </pre>
+      <p><code>email</code> is the username.</p>
+      <p><code>password</code> is the password.</p>
+      <p><code>_csrf</code> is the csrfToken get from server when load this page.</p>
+
+      <p><span class="label label-warning">RETURE</span></p>
+      <p>When failed, return to login page with error message shows on the top.</p>
+      <p>When success, return to former url or user profile.</p>
+      <p><span class="label label-default">Notice</span> if before login the anonymous user add new products into shopping cart, then after login, the products in shopping cart will merge into users shopping cart in database. The updated shopping cart is an update of combination of old shopping cart and new shopping cart</p>
+
+
+
+      <h3 id="user-signup">User Signup</h3>
+      <p><span class="label label-success">GET</span><pre>/shop/signup</pre></p>
+      <p>Retrive singnup page and get csrfToken for submit form.</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <pre>
+{
+  csrfToken: String,
+  messages: String,
+  hasErrors: bool
+}
+</pre>
+      <p><code>csrfToken</code> is a String get from server to prevent csrf attack. Put this Token under form submit with user login infos.</p>
+      <p><code>messages</code> is a String that represents error message if exists.</p>
+      <p><code>hasErrors</code> is the bool indicate if there is errors.</p>
+
+
+      <h3 id="user-signup-post">User Signup</h3>
+      <p><span class="label label-info">POST</span><pre>/shop/signup</pre></p>
+      <p>Submit user name and password to create new account on passport.</p>
+      <p><span class="label label-danger">SUBMIT</span></p>
+      <pre>
+{
+  email: String,
+  password: String,
+  _csrf: String
+}
+</pre>
+      <p><code>email</code> is the username.</p>
+      <p><code>password</code> is the password.</p>
+      <p><code>_csrf</code> is the csrfToken get from server when load this page.</p>
+
+      <p><span class="label label-warning">RETURE</span></p>
+      <p>When failed, return to logup page with error message shows on the top.</p>
+      <p>When success, return to former url or user profile.</p>
+      <p><span class="label label-default">Notice</span> if before signup the anonymous user add new products into shopping cart, then after login, the products in shopping cart will merge into users shopping cart in database. The updated shopping cart is an update of combination of old shopping cart and new shopping cart</p>
+
+
+
+      <h3 id="user-logout">User Logout</h3>
+      <p><span class="label label-success">GET</span><pre>/shop/logout</pre></p>
+      <p>Only valid after user login. Log out current user from passport.</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <p>When success, clear temporary shopping cart and save all data into databse. Show successful Logout page.</p>
+
+      <!-- End of  User function related API -->
+
+    </div>
+  </div>
+
+
+
+
+
+</div>
+
+<script type="text/javascript" src="/javascripts/shop/about.js"></script>

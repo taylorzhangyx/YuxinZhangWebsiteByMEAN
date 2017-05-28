@@ -1,3 +1,7 @@
+.mini-submenu, .list-group{
+  position: fixed;
+}
+
 .mini-submenu{
   display:none;
   background-color: rgba(0, 0, 0, 0);
@@ -6,7 +10,6 @@
   padding: 9px;
   /*position: relative;*/
   width: 42px;
-
 }
 
 .mini-submenu:hover{
@@ -33,6 +36,15 @@
   cursor: pointer;
 }
 
-.content{
+.content h2{
+  margin: 30px 0px 20px 0px;
+}
 
+.content h3{
+  padding-bottom: 4px;
+  margin: 20px 0px 15px 0px;
+  border-bottom: 1px inset grey;
+}
+.content p{
+  margin: 10px 0px;
 }

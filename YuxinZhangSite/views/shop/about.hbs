@@ -53,16 +53,16 @@
       <h3>Product</h3>
 <pre>
 {
-    name: {type: String, required: true},
-    category: {type: String, retuqired: true, default: 'new'},
-    picture: {type: String, required: true},
-    description: {type: String, required: true},
-    price: {type: Number, required: true},
-    soldnum: {type: Number, required: true, default: 0},
-    seller: {type: String, required: true},
-    postdate: {type: Date, default: Date.now},
-    upvote: {type: Number, default: 0},
-    downvote: {type: Number, default: 0 }
+  name: {type: String, required: true},
+  category: {type: String, retuqired: true, default: 'new'},
+  picture: {type: String, required: true},
+  description: {type: String, required: true},
+  price: {type: Number, required: true},
+  soldnum: {type: Number, required: true, default: 0},
+  seller: {type: String, required: true},
+  postdate: {type: Date, default: Date.now},
+  upvote: {type: Number, default: 0},
+  downvote: {type: Number, default: 0 }
 }
 </pre>
       <p>Porduct schema desines basic information about one product include all above</p>
@@ -156,14 +156,70 @@
       <pre>
 {
   products: [Product],
-  msg: successmsg,
+  msg: String,
   cart: Cart
 }
 </pre>
-<p><code>products</code> is an Array of Product object.</p>
-<p><code>msg</code> is String what represents successmsg if exists.</p>
-<p><code>cart</code> is the current shopping cart object that this user have.</p>
+      <p><code>products</code> is an Array of Product object.</p>
+      <p><code>msg</code> is a String that represents successmsg if exists.</p>
+      <p><code>cart</code> is the current shopping cart object that this user have.</p>
 
+
+      <h3>Products Display on Category</h3>
+      <p><span class="label label-success">GET</span><pre>/shop/:category</pre></p>
+      <p>Loop through products in database and return an object include products in matched category, error message and current shopping cart.</p>
+      <p><span class="label label-primary">Params</span></p>
+      <p><code>category</code>: one of the predefined category among <b>Book</b>, <b>Movie</b>, <b>Game</b>, <b>Music</b>, <b>Food</b> and <b>Other</b>.</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <pre>
+{
+  products: [Product],
+  msg: String,
+  cart: Cart
+}
+</pre>
+      <p><code>products</code> is an Array of Product object that is in the category.</p>
+      <p><code>msg</code> is a String that represents successmsg if exists.</p>
+      <p><code>cart</code> is the current shopping cart object that this user have.</p>
+      <!-- End of shopping page API -->
+
+      <!-- shopping cart related API -->
+      <h2>Shopping Cart API</h2>
+
+      <h3>Cart Display</h3>
+      <p><span class="label label-success">GET</span><pre>/shop/cart</pre></p>
+      <p>If the user is loged in, This API will retrive cart object from database with the reference to unique shopping cart on this user.</p>
+      <p>if the user not loged in, this API will visit temporary seesion to access cart object.</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <pre>
+{
+  cart: Cart
+}
+</pre>
+      <p><code>cart</code> is an Cart object.</p>
+      <!-- End of Shopping cart related API -->
+
+
+      <!-- User function related API -->
+      <h2>User API</h2>
+
+      <h3>Products Display on Category</h3>
+      <p><span class="label label-success">GET</span><pre>/shop/:category</pre></p>
+      <p>Loop through products in database and return an object include products in matched category, error message and current shopping cart.</p>
+      <p><span class="label label-primary">Params</span></p>
+      <p><code>category</code>: one of the predefined category among <b>Book</b>, <b>Movie</b>, <b>Game</b>, <b>Music</b>, <b>Food</b> and <b>Other</b>.</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <pre>
+{
+  products: [Product],
+  msg: String,
+  cart: Cart
+}
+</pre>
+      <p><code>products</code> is an Array of Product object that is in the category.</p>
+      <p><code>msg</code> is a String that represents successmsg if exists.</p>
+      <p><code>cart</code> is the current shopping cart object that this user have.</p>
+      <!-- End of  User function related API -->
 
     </div>
   </div>

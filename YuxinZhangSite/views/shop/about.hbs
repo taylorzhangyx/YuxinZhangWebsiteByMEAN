@@ -1,10 +1,12 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="/javascripts/shop/about.js"></script>
+
 
 
 <div class="container">
 
   {{> shopnav}}
+
+<!-- return to top -->
+<a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
 
   <!-- sidebar -->
   <div class="row">
@@ -21,10 +23,82 @@
                 <i class="fa fa-times"></i>
             </span>
         </span>
-        <a href="#introduction" class="list-group-item">
+        <a href="#introduction" class="list-group-item list-group-item-title">
            Introduction
         </a>
+        <a href="#schema" class="list-group-item list-group-item-title">
+           Schema
+        </a>
+        <a href="#schema-product" class="list-group-item">
+           <span class="label label-default">Schema</span> Product
+        </a>
+        <a href="#schema-user" class="list-group-item">
+           <span class="label label-default">Schema</span> User
+        </a>
+        <a href="#schema-cart" class="list-group-item">
+           <span class="label label-default">Schema</span> Cart
+        </a>
+        <a href="#schema-item" class="list-group-item">
+           <span class="label label-default">Schema</span> Item
+        </a>
+        <a href="#schema-order" class="list-group-item">
+           <span class="label label-default">Schema</span> Order
+        </a>
+        <!-- shopapi -->
+        <a href="#shop" class="list-group-item list-group-item-title">
+           Shop API
+        </a>
+        <a href="#shop-product-display" class="list-group-item">
+           <span class="label label-success">GET</span> Products Display
+        </a>
+        <a href="#shop-product-display-category" class="list-group-item">
+           <span class="label label-success">GET</span> Products Display on Category
+        </a>
+        <a href="#shop-add-product-get" class="list-group-item">
+           <span class="label label-success">GET</span> Add new product to stock
+        </a>
+        <a href="#shop-add-product-post" class="list-group-item">
+           <span class="label label-info">POST</span> Add new product to stock
+        </a>
+        <a href="#shop-product" class="list-group-item">
+           <span class="label label-success">GET</span> Product details
+        </a>
 
+        <!-- cart api -->
+        <a href="#cart" class="list-group-item list-group-item-title">
+           Shopping Cart API
+        </a>
+        <a href="#cart-display" class="list-group-item">
+           <span class="label label-success">GET</span> Cart Display
+        </a>
+        <a href="#cart-add-prodcut" class="list-group-item">
+           <span class="label label-success">GET</span> Add new products to cart
+        </a>
+        <a href="#cart-reduce-product" class="list-group-item">
+           <span class="label label-success">GET</span> Remove one product from cart
+        </a>
+        <a href="#cart-remove-product" class="list-group-item">
+           <span class="label label-success">GET</span> Remove products from cart
+        </a>
+
+        <a href="#user" class="list-group-item list-group-item-title">
+           User API
+        </a>
+        <a href="#user-signin" class="list-group-item">
+           <span class="label label-success">GET</span> User Signin
+        </a>
+        <a href="#user-signin-post" class="list-group-item">
+           <span class="label label-info">POST</span> User Signin
+        </a>
+        <a href="#user-signup" class="list-group-item">
+           <span class="label label-success">GET</span> User Signup
+        </a>
+        <a href="#user-signup-post" class="list-group-item">
+           <span class="label label-info">POST</span> User Signup
+        </a>
+        <a href="#user-logout" class="list-group-item">
+           <span class="label label-success">GET</span> User Logout
+        </a>
       </div>
     </div>
 
@@ -170,7 +244,7 @@
 
 
       <!-- GET add new product to stock -->
-      <h3 id="shop-add-product">add new product to stock</h3>
+      <h3 id="shop-add-product-get">add new product to stock</h3>
       <p><span class="label label-success">GET</span><pre>/shop/addproduct</pre></p>
       <p>Retrive the product page with cdrfToken</p>
       <p><span class="label label-warning">RETURE</span></p>
@@ -181,8 +255,9 @@ csrfToken: String
 </pre>
       <p><code>csrfToken</code> is an String get from server to prevent csrf attack. Put it in the form.</p>
 
+
       <!-- POST add new product to stock -->
-      <h3>add new product to stock</h3>
+      <h3 id="shop-add-product-post">add new product to stock</h3>
       <p><span class="label label-info">POST</span><pre>/shop/addproduct</pre></p>
       <p>Submit a form of product information to create new product in stock.</p>
       <p><span class="label label-danger">SUBMIT</span></p>
@@ -202,7 +277,7 @@ csrfToken: String
 
 
       <!-- GET product details -->
-      <h3>Product details</h3>
+      <h3 id="shop-product">Product details</h3>
       <p><span class="label label-success">GET</span><pre>/shop/product/:id</pre></p>
       <p>Show the details of product with <b>id</b>.</p>
       <p><span class="label label-primary">Params</span></p>
@@ -219,9 +294,9 @@ csrfToken: String
       <!-- End of shopping page API -->
 
       <!-- shopping cart related API -->
-      <h2>Shopping Cart API</h2>
+      <h2 id="cart">Shopping Cart API</h2>
 
-      <h3>Cart Display</h3>
+      <h3 id="cart-display">Cart Display</h3>
       <p><span class="label label-success">GET</span><pre>/shop/cart</pre></p>
       <p>If the user is loged in, This API will retrive cart object from database with the reference to unique shopping cart on this user.</p>
       <p>if the user not loged in, this API will visit temporary seesion to access cart object.</p>
@@ -235,7 +310,7 @@ csrfToken: String
 
 
       <!-- Add new products to cart -->
-      <h3>Add new products to cart</h3>
+      <h3 id="cart-add-prodcut">Add new products to cart</h3>
       <p><span class="label label-success">GET</span><pre>/shop/add-to-cart/:id</pre></p>
       <p>Add one new product with <b>id</b> to shopping cart</p>
       <p><span class="label label-primary">Params</span></p>
@@ -246,7 +321,7 @@ csrfToken: String
 
 
       <!-- Remove one products from cart -->
-      <h3>Remove one product from cart</h3>
+      <h3 id="cart-reduce-product">Remove one product from cart</h3>
       <p><span class="label label-success">GET</span><pre>/shop/reduce/:id</pre></p>
       <p>Remove one product with <b>id</b> from shopping cart</p>
       <p><span class="label label-primary">Params</span></p>
@@ -257,7 +332,7 @@ csrfToken: String
 
 
       <!-- Remove products from cart -->
-      <h3>Remove products from cart</h3>
+      <h3 id="cart-remove-product">Remove products from cart</h3>
       <p><span class="label label-success">GET</span><pre>/shop/remove/:id</pre></p>
       <p>Remove one kind of product with <b>id</b> from shopping cart.</p>
       <p><span class="label label-primary">Params</span></p>
@@ -270,9 +345,9 @@ csrfToken: String
 
 
       <!-- User function related API -->
-      <h2>User API</h2>
+      <h2 id="user">User API</h2>
 
-      <h3>User Signin</h3>
+      <h3 id="user-signin">User Signin</h3>
       <p><span class="label label-success">GET</span><pre>/shop/signin</pre></p>
       <p>Retrive singnin page and get csrfToken for submit form.</p>
       <p><span class="label label-warning">RETURE</span></p>
@@ -288,7 +363,7 @@ csrfToken: String
       <p><code>hasErrors</code> is the bool indicate if there is errors.</p>
 
 
-      <h3>User Signin</h3>
+      <h3 id="user-signin-post">User Signin</h3>
       <p><span class="label label-info">POST</span><pre>/shop/signin</pre></p>
       <p>Submit user name and password then process login in passport.</p>
       <p><span class="label label-danger">SUBMIT</span></p>
@@ -310,7 +385,7 @@ csrfToken: String
 
 
 
-      <h3>User Signup</h3>
+      <h3 id="user-signup">User Signup</h3>
       <p><span class="label label-success">GET</span><pre>/shop/signup</pre></p>
       <p>Retrive singnup page and get csrfToken for submit form.</p>
       <p><span class="label label-warning">RETURE</span></p>
@@ -326,7 +401,7 @@ csrfToken: String
       <p><code>hasErrors</code> is the bool indicate if there is errors.</p>
 
 
-      <h3>User Signup</h3>
+      <h3 id="user-signup-post">User Signup</h3>
       <p><span class="label label-info">POST</span><pre>/shop/signup</pre></p>
       <p>Submit user name and password to create new account on passport.</p>
       <p><span class="label label-danger">SUBMIT</span></p>
@@ -348,7 +423,7 @@ csrfToken: String
 
 
 
-      <h3>User Logout</h3>
+      <h3 id="user-logout">User Logout</h3>
       <p><span class="label label-success">GET</span><pre>/shop/logout</pre></p>
       <p>Only valid after user login. Log out current user from passport.</p>
       <p><span class="label label-warning">RETURE</span></p>
@@ -364,3 +439,5 @@ csrfToken: String
 
 
 </div>
+
+<script type="text/javascript" src="/javascripts/shop/about.js"></script>

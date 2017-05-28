@@ -54,6 +54,9 @@
         <a href="#shop-product-display-category" class="list-group-item">
            <span class="label label-success">GET</span> Products Display on Category
         </a>
+        <a href="#shop-product-search" class="list-group-item">
+           <span class="label label-success">GET</span> Products Search
+        </a>
         <a href="#shop-add-product-get" class="list-group-item">
            <span class="label label-success">GET</span> Add new product to stock
         </a>
@@ -241,6 +244,26 @@
       <p><code>products</code> is an Array of Product object that is in the category.</p>
       <p><code>msg</code> is a String that represents successmsg if exists.</p>
       <p><code>cart</code> is the current shopping cart object that this user have.</p>
+
+
+      <h3 id="shop-product-search">Products Search</h3>
+      <p><span class="label label-success">GET</span><pre>/shop/search?search=###</pre></p>
+      <p>Retrive product with the name or description that contains the key word. Return an object include products in matched category, error message and current shopping cart.</p>
+      <p><span class="label label-primary">Params</span></p>
+      <p><code>search</code>: The key word provided in form with the name of search.</p>
+      <p><span class="label label-warning">RETURE</span></p>
+      <pre>
+{
+  products: [Product],
+  msg: String,
+  cart: Cart
+}
+</pre>
+      <p><code>products</code> is an Array of Product object that is in the category.</p>
+      <p><code>msg</code> is a String that represents successmsg if exists.</p>
+      <p><code>cart</code> is the current shopping cart object that this user have.</p>
+
+
 
 
       <!-- GET add new product to stock -->

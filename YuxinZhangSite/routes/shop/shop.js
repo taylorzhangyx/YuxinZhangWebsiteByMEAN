@@ -52,6 +52,46 @@ shop.get('/', function(req, res, next) {
 });
 
 
+shop.get('/search', function(req, res, next){
+  console.log("shop get");
+  console.log(req.url);
+  console.log(req.query);
+  var successmsg = req.flash('success')[0];
+  Product.find( {$or: [{ "name": { "$regex": req.query.search, "$options": "i" } }, { "description": { "$regex": req.query.search, "$options": "i" } }]}).then(
+    function(product) {
+      console.log(product);
+      if(product){
+        var productChunks = [];
+        var chunkSize = 3;
+        for (var i = 0; i < product.length; i += chunkSize) {
+          productChunks.push(product.slice(i, i + chunkSize));
+        }
+        if(req.isAuthenticated()){
+          Cart.findById(req.user.cart, function(err, cart){
+            res.render('shop/shop', {
+              products: productChunks,
+              msg: successmsg,
+              cart: cart
+            });
+          });
+        }
+        else{
+          res.render('shop/shop', {
+            products: productChunks,
+            msg: successmsg,
+            cart: req.session.cart
+          });
+        }
+
+      }
+      else res.redirect('/');
+    }
+  ).catch(function(err){
+    console.log(err);
+  });
+});
+
+
 shop.get('/signin', isNotLoggedIn, function (req, res, next) {
     var messages = req.flash('error');
     res.render('shop/signin', {csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
@@ -158,7 +198,6 @@ shop.get('/addproduct', isLoggedIn, function(req, res, next){
 
 
 shop.post('/addproduct', isLoggedIn, function(req, res, next){
-  console.log(req.body);
   var data = req.body;
   var newproduct = new Product({
     name: data.name,

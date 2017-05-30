@@ -215,7 +215,7 @@
       <h3 id="shop-product-display">Products Display</h3>
       <p><span class="label label-success">GET</span><pre>/shop</pre></p>
       <p>Loop through products in database and return an object include products, error message and current shopping cart.</p>
-      <p><span class="label label-warning">RETURE</span></p>
+      <p><span class="label label-warning">RETURN</span></p>
       <pre>
 {
   products: [Product],
@@ -233,7 +233,7 @@
       <p>Loop through products in database and return an object include products in matched category, error message and current shopping cart.</p>
       <p><span class="label label-primary">Params</span></p>
       <p><code>category</code>: one of the predefined category among <b>Book</b>, <b>Movie</b>, <b>Game</b>, <b>Music</b>, <b>Food</b> and <b>Other</b>.</p>
-      <p><span class="label label-warning">RETURE</span></p>
+      <p><span class="label label-warning">RETURN</span></p>
       <pre>
 {
   products: [Product],
@@ -251,7 +251,7 @@
       <p>Retrive product with the name or description that contains the key word. Return an object include products in matched category, error message and current shopping cart.</p>
       <p><span class="label label-primary">Params</span></p>
       <p><code>search</code>: The key word provided in form with the name of search.</p>
-      <p><span class="label label-warning">RETURE</span></p>
+      <p><span class="label label-warning">RETURN</span></p>
       <pre>
 {
   products: [Product],
@@ -270,7 +270,7 @@
       <h3 id="shop-add-product-get">add new product to stock</h3>
       <p><span class="label label-success">GET</span><pre>/shop/addproduct</pre></p>
       <p>Retrive the product page with cdrfToken</p>
-      <p><span class="label label-warning">RETURE</span></p>
+      <p><span class="label label-warning">RETURN</span></p>
       <pre>
 {
 csrfToken: String
@@ -294,7 +294,7 @@ csrfToken: String
 }
 </pre>
       <p>Please refer the schema of Product to see the details of above section</p>
-      <p><span class="label label-warning">RETURE</span></p>
+      <p><span class="label label-warning">RETURN</span></p>
       <p>When failed, return to add product page with error message shows on the top.</p>
       <p>When success, return to product detail page which show the information about this product.</p>
 
@@ -305,7 +305,7 @@ csrfToken: String
       <p>Show the details of product with <b>id</b>.</p>
       <p><span class="label label-primary">Params</span></p>
       <p><code>id</code>: the id of selected product.</p>
-      <p><span class="label label-warning">RETURE</span></p>
+      <p><span class="label label-warning">RETURN</span></p>
       <pre>
       {
       product: Product
@@ -323,7 +323,7 @@ csrfToken: String
       <p><span class="label label-success">GET</span><pre>/shop/cart</pre></p>
       <p>If the user is loged in, This API will retrive cart object from database with the reference to unique shopping cart on this user.</p>
       <p>if the user not loged in, this API will visit temporary seesion to access cart object.</p>
-      <p><span class="label label-warning">RETURE</span></p>
+      <p><span class="label label-warning">RETURN</span></p>
       <pre>
 {
   cart: Cart
@@ -338,7 +338,7 @@ csrfToken: String
       <p>Add one new product with <b>id</b> to shopping cart</p>
       <p><span class="label label-primary">Params</span></p>
       <p><code>id</code>: the id of selected product.</p>
-      <p><span class="label label-warning">RETURE</span></p>
+      <p><span class="label label-warning">RETURN</span></p>
       <p>When success, one product will add to cart and redirect to main shopping page.</p>
       <p>When fail, error message will show up on top of web page.</p>
 
@@ -349,7 +349,7 @@ csrfToken: String
       <p>Remove one product with <b>id</b> from shopping cart</p>
       <p><span class="label label-primary">Params</span></p>
       <p><code>id</code>: the id of selected product.</p>
-      <p><span class="label label-warning">RETURE</span></p>
+      <p><span class="label label-warning">RETURN</span></p>
       <p>When success, one product will remove from cart and redirect to main shopping page. If the left product number become zero, this product will be removed from cart.</p>
       <p>When fail, error message will show up on top of web page.</p>
 
@@ -360,7 +360,7 @@ csrfToken: String
       <p>Remove one kind of product with <b>id</b> from shopping cart.</p>
       <p><span class="label label-primary">Params</span></p>
       <p><code>id</code>: the id of selected product.</p>
-      <p><span class="label label-warning">RETURE</span></p>
+      <p><span class="label label-warning">RETURN</span></p>
       <p>When success, one line of product will remove from cart no mater how many there are in the cart and redirect to main shopping page.</p>
       <p>When fail, error message will show up on top of web page.</p>
 
@@ -373,7 +373,7 @@ csrfToken: String
       <h3 id="user-signin">User Signin</h3>
       <p><span class="label label-success">GET</span><pre>/shop/signin</pre></p>
       <p>Retrive singnin page and get csrfToken for submit form.</p>
-      <p><span class="label label-warning">RETURE</span></p>
+      <p><span class="label label-warning">RETURN</span></p>
       <pre>
 {
   csrfToken: String,
@@ -401,7 +401,7 @@ csrfToken: String
       <p><code>password</code> is the password.</p>
       <p><code>_csrf</code> is the csrfToken get from server when load this page.</p>
 
-      <p><span class="label label-warning">RETURE</span></p>
+      <p><span class="label label-warning">RETURN</span></p>
       <p>When failed, return to login page with error message shows on the top.</p>
       <p>When success, return to former url or user profile.</p>
       <p><span class="label label-default">Notice</span> if before login the anonymous user add new products into shopping cart, then after login, the products in shopping cart will merge into users shopping cart in database. The updated shopping cart is an update of combination of old shopping cart and new shopping cart</p>
@@ -411,7 +411,7 @@ csrfToken: String
       <h3 id="user-signup">User Signup</h3>
       <p><span class="label label-success">GET</span><pre>/shop/signup</pre></p>
       <p>Retrive singnup page and get csrfToken for submit form.</p>
-      <p><span class="label label-warning">RETURE</span></p>
+      <p><span class="label label-warning">RETURN</span></p>
       <pre>
 {
   csrfToken: String,
@@ -439,7 +439,7 @@ csrfToken: String
       <p><code>password</code> is the password.</p>
       <p><code>_csrf</code> is the csrfToken get from server when load this page.</p>
 
-      <p><span class="label label-warning">RETURE</span></p>
+      <p><span class="label label-warning">RETURN</span></p>
       <p>When failed, return to logup page with error message shows on the top.</p>
       <p>When success, return to former url or user profile.</p>
       <p><span class="label label-default">Notice</span> if before signup the anonymous user add new products into shopping cart, then after login, the products in shopping cart will merge into users shopping cart in database. The updated shopping cart is an update of combination of old shopping cart and new shopping cart</p>
@@ -449,7 +449,7 @@ csrfToken: String
       <h3 id="user-logout">User Logout</h3>
       <p><span class="label label-success">GET</span><pre>/shop/logout</pre></p>
       <p>Only valid after user login. Log out current user from passport.</p>
-      <p><span class="label label-warning">RETURE</span></p>
+      <p><span class="label label-warning">RETURN</span></p>
       <p>When success, clear temporary shopping cart and save all data into databse. Show successful Logout page.</p>
 
       <!-- End of  User function related API -->
